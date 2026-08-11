@@ -1,0 +1,232 @@
+:root {
+  --g1: #0d5c2e;
+  --g2: #1a8f45;
+  --g3: #8fd94a;
+  --yellow: #ffe600;
+  --pink: #ff2d95;
+  --ink: #0a0a0a;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: linear-gradient(180deg, var(--g1) 0%, var(--g2) 45%, var(--g3) 100%);
+  min-height: 100vh;
+  color: white;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.bg-dots {
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(rgba(255,230,0,0.35) 1.5px, transparent 1.5px);
+  background-size: 14px 14px;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: linear-gradient(180deg, transparent 0%, black 20%, black 80%, transparent 100%);
+}
+
+.top, main, footer { position: relative; z-index: 1; }
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 32px;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.brand .time {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--yellow);
+}
+
+.brand .studio {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--yellow);
+  opacity: 0.9;
+}
+
+nav { display: flex; align-items: center; gap: 20px; }
+
+.link {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 1px;
+  opacity: 0.9;
+}
+
+.create-btn {
+  background: var(--yellow);
+  color: var(--ink);
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 1px;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  border: 3px solid #ff4d6a;
+  box-shadow: 3px 3px 0 #ff4d6a;
+  transition: transform 0.15s;
+}
+
+.create-btn:hover { transform: translate(-1px, -1px); }
+
+.hero {
+  text-align: center;
+  padding: 60px 20px 80px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.mega {
+  font-family: 'Space Grotesk', serif;
+  font-size: clamp(48px, 12vw, 110px);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -2px;
+  color: var(--yellow);
+  text-shadow: 4px 4px 0 rgba(0,0,0,0.25);
+  margin-bottom: 28px;
+  position: relative;
+}
+
+.mega .word { display: inline; }
+
+.mega .hindi {
+  display: inline-block;
+  font-size: 0.45em;
+  color: white;
+  background: var(--pink);
+  padding: 4px 14px 8px;
+  border-radius: 14px;
+  border: 3px solid white;
+  transform: rotate(-8deg);
+  margin: 0 6px;
+  vertical-align: middle;
+  text-shadow: none;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(8px);
+  padding: 10px 22px;
+  border-radius: 40px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 20px;
+}
+
+.pill .dot { opacity: 0.5; }
+
+.sub {
+  font-size: 18px;
+  opacity: 0.9;
+  margin-bottom: 32px;
+}
+
+.actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-main {
+  background: var(--yellow);
+  color: var(--ink);
+  font-weight: 800;
+  padding: 14px 28px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 15px;
+  border: 3px solid #ff4d6a;
+  box-shadow: 4px 4px 0 #ff4d6a;
+  transition: transform 0.15s;
+}
+
+.btn-main:hover { transform: translate(-2px, -2px); }
+
+.btn-ghost {
+  background: transparent;
+  color: white;
+  font-weight: 700;
+  padding: 14px 24px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 15px;
+  border: 2px solid rgba(255,255,255,0.5);
+}
+
+.about {
+  padding: 20px 24px 80px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.cards {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.info-card {
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 16px;
+  padding: 28px 22px;
+  width: 280px;
+  text-align: center;
+}
+
+.ic { font-size: 32px; margin-bottom: 10px; }
+
+.info-card h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.info-card p {
+  font-size: 14px;
+  opacity: 0.85;
+  line-height: 1.5;
+}
+
+footer {
+  text-align: center;
+  padding: 24px;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+footer .small {
+  margin-top: 4px;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+@media (max-width: 600px) {
+  .mega { letter-spacing: -1px; }
+  .pill { flex-wrap: wrap; justify-content: center; gap: 6px; }
+}
