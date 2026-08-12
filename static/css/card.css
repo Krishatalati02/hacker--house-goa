@@ -676,4 +676,154 @@ body {
 }
 
 .site-foot .hi { color: #f0c41a; }
+@media (max-width: 720px) {
+  .topbar {
+    padding: 10px 12px;
+    font-size: 12px;
+    gap: 8px;
+  }
+
+  .logo { font-size: 12px; }
+  .dates { font-size: 11px; text-align: right; }
+
+  .wrap {
+    padding: 16px 10px 32px;
+    width: 100%;
+  }
+
+  .hint {
+    font-size: 13px;
+    margin-bottom: 18px;
+    padding: 0 4px;
+  }
+
+  .layout {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .card-stage {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .card {
+    width: 100%;
+    max-width: min(360px, calc(100vw - 20px));
+    padding: 12px 10px 8px;
+    border-radius: 14px;
+  }
+
+  .title {
+    font-size: 18px;
+    margin: 2px 0 8px;
+  }
+
+  .mid {
+    min-height: 96px;
+    margin-bottom: 10px;
+  }
+
+  .side { width: 52px; gap: 4px; }
+
+  .t { font-size: 7px; padding: 2px 5px; }
+
+  .board { width: 9px; height: 30px; }
+
+  .lets {
+    width: 42px;
+    height: 42px;
+    font-size: 7.5px;
+  }
+
+  .icons { font-size: 16px; }
+
+  .ring {
+    width: 88px;
+    height: 88px;
+    border-width: 3px;
+  }
+
+  .ph-avatar svg { width: 40px; height: 40px; }
+  .ph-text { font-size: 8px; }
+
+  .name-strip {
+    font-size: 15px;
+    padding: 7px 8px;
+    letter-spacing: 1px;
+  }
+
+  .role-strip {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+
+  .stats {
+    gap: 5px;
+    margin-bottom: 10px;
+  }
+
+  .stat { padding: 6px 3px; border-radius: 8px; }
+
+  .lbl { font-size: 6.5px; }
+
+  .val { font-size: 9px; }
+
+  .bag { font-size: 8px !important; }
+
+  .id-row { gap: 8px; margin-bottom: 6px; }
+
+  .qr {
+    width: 54px;
+    height: 54px;
+  }
+
+  .qr canvas, .qr img {
+    width: 48px !important;
+    height: 48px !important;
+  }
+
+  .id-val { font-size: 12px; }
+
+  .barcode-img {
+    max-width: 120px;
+    height: 22px;
+  }
+
+  .card-foot { font-size: 9px; letter-spacing: 1.5px; }
+
+  .panel {
+    width: 100%;
+    max-width: min(360px, calc(100vw - 20px));
+  }
+
+  .panel-head { padding: 18px 16px 14px; }
+  .panel-head h2 { font-size: 18px; }
+  .form-body { padding: 16px 16px 6px; }
+  .actions { padding: 6px 16px 14px; }
+  .back { padding: 0 16px 16px; }
+}
+
+@media (max-width: 360px) {
+  .card {
+    max-width: calc(100vw - 16px);
+  }
+
+  .badge.goa { padding: 3px 5px; }
+  .badge.hh { width: 46px; height: 44px; }
+  .badge.hh strong { font-size: 14px; }
+  .badge.palm { width: 48px; height: 48px; }
+  .badge.palm span { font-size: 11px; }
+
+  .title { font-size: 16px; }
+
+  .ring { width: 78px; height: 78px; }
+
+  .side { width: 46px; }
+
+  .name-strip { font-size: 14px; }
+}
 
