@@ -75,7 +75,7 @@ body {
   align-items: flex-start;
 }
 
-/* ---- CARD ---- */
+/* CARD */
 .card {
   width: 360px;
   background: var(--cream);
@@ -391,7 +391,7 @@ body {
   border-top: 1px dashed #c5bba8;
 }
 
-/* ---- PANEL (stylish form) ---- */
+/* FORM */
 .panel {
   width: 320px;
   background: white;
