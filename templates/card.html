@@ -22,98 +22,59 @@
     <p class="hint">Fill in your details, then hit Create Card to open your full collectible.</p>
 
     <div class="layout">
-      <!-- LIVE PREVIEW -->
       <div class="card-stage">
         <div id="builder-card" class="card">
-          <div class="card-header">
-            <div class="badge goa">
-              <span>🏔</span>
-              <small>GOA<br>INDIA</small>
+          <div class="c-top">
+            <div class="c-logo">HH GOA 2026</div>
+            <div class="c-access">ACCESS_LEVEL: 01</div>
+          </div>
+
+          <div class="c-photo-wrap">
+            <div class="c-photo-ring">
+              <img id="card-photo" class="hidden" alt="" />
+              <div id="placeholder" class="c-placeholder">
+                <svg viewBox="0 0 64 64" width="52" height="52" aria-hidden="true">
+                  <circle cx="32" cy="24" r="12" fill="#1a5c3a"/>
+                  <path d="M12 54c0-11 9-18 20-18s20 7 20 18" fill="#1a5c3a"/>
+                </svg>
+              </div>
             </div>
-            <div class="badge hh">
-              <strong>HH</strong>
-              <small>GOA<br>2026</small>
+            <div class="c-id-pill">ID: <span id="card-id-short">····</span></div>
+          </div>
+
+          <div class="c-name-block">
+            <div class="c-name" id="card-name">YOUR NAME</div>
+            <div class="c-role" id="card-role">YOUR ROLE</div>
+          </div>
+
+          <div class="c-meta">
+            <div class="c-meta-box">
+              <div class="c-meta-lbl">BUILDER CLASS</div>
+              <div class="c-meta-val orange" id="card-class">TERMINAL WIZARD</div>
             </div>
-            <div class="badge palm">
-              <span>🌴</span>
-              <small>BUILT IN GOA<br>SHIPPED FROM GOA</small>
+            <div class="c-meta-box">
+              <div class="c-meta-lbl">STATUS</div>
+              <div class="c-meta-val green">ACTIVE</div>
             </div>
           </div>
 
-          <h1 class="title">HACKER <span>गोवा</span> HOUSE</h1>
-
-          <div class="mid">
-            <div class="side left">
-              <div class="tags">
-                <span class="t green">BUILD</span>
-                <span class="t blue">SHIP</span>
-                <span class="t purple">REPEAT</span>
-              </div>
-              <div class="boards">
-                <div class="board r"></div>
-                <div class="board b"></div>
-              </div>
-            </div>
-
-            <div class="photo-wrap">
-              <div class="ring">
-                <img id="card-photo" class="hidden" alt="" />
-                <div id="placeholder" class="placeholder">
-                  <div class="ph-avatar">
-                    <svg viewBox="0 0 64 64" width="48" height="48" aria-hidden="true">
-                      <circle cx="32" cy="24" r="12" fill="#1a5c3a"/>
-                      <path d="M12 54c0-11 9-18 20-18s20 7 20 18" fill="#1a5c3a"/>
-                    </svg>
-                  </div>
-                  <div class="ph-text">ADD PHOTO</div>
-                </div>
-              </div>
-              <span class="spark s1">✦</span>
-              <span class="spark s2">✦</span>
-            </div>
-
-            <div class="side right">
-              <div class="lets">LET'S<br>BUILD!</div>
-              <div class="icons">🏠<br>🚲</div>
-            </div>
+          <div class="c-qr-box">
+            <div class="c-qr-lbl">SCANNABLE_ID // AUTH_TOKEN</div>
+            <div id="qrcode" class="c-qr"></div>
           </div>
 
-          <div class="name-strip" id="card-name">YOUR NAME</div>
-          <div class="role-strip" id="card-role">YOUR ROLE</div>
-
-          <div class="stats">
-            <div class="stat">
-              <div class="lbl">BUILDER CLASS</div>
-              <div class="val red" id="card-class">TERMINAL<br>WIZARD</div>
+          <div class="c-bar-box">
+            <div class="c-bar-top">
+              <span>SCANNABLE_ID // BARCODE</span>
+              <span id="card-id">#HH-GOA-····-····</span>
             </div>
-            <div class="stat">
-              <div class="lbl">BEACH BAG</div>
-              <div class="val bag">
-                <span>🥥 Coconut</span>
-                <span>💻 VS Code</span>
-                <span>🎧 Lo-Fi</span>
-              </div>
-            </div>
-            <div class="stat">
-              <div class="lbl">SHIPPING</div>
-              <div class="val green">BUILDING<br>THE FUTURE</div>
-            </div>
+            <img id="card-barcode" class="c-barcode" alt="barcode" />
           </div>
 
-          <div class="id-row">
-            <div id="qrcode" class="qr"></div>
-            <div class="id-meta">
-              <div class="id-lbl">BUILDER ID</div>
-              <div class="id-val" id="card-id">#HH-GOA-····-····</div>
-              <img id="card-barcode" class="barcode-img" alt="barcode" />
-            </div>
-          </div>
-
-          <div class="card-foot">★ #FRAMEINGOA ★</div>
+          <div class="c-foot">BUILD · SHIP · REPEAT</div>
         </div>
       </div>
 
-      <!-- FORM -->
       <div class="panel">
         <div class="panel-head">
           <div class="panel-badge">HH GOA 26</div>
@@ -167,9 +128,7 @@
         </div>
 
         <div class="actions">
-          <button id="btn-create" class="btn red">
-            <span>+ Create Card</span>
-          </button>
+          <button id="btn-create" class="btn red"><span>+ Create Card</span></button>
           <button id="btn-regen" class="btn ghost">↻ New Builder ID</button>
         </div>
 

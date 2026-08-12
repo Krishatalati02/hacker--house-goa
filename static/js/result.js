@@ -5,6 +5,7 @@
   const cardRole = $("#card-role");
   const cardClass = $("#card-class");
   const cardId = $("#card-id");
+  const cardIdShort = $("#card-id-short");
   const cardPhoto = $("#card-photo");
   const placeholder = $("#placeholder");
   const qrBox = $("#qrcode");
@@ -24,28 +25,30 @@
     }
   }
 
+  function setShortId(fullId) {
+    if (!cardIdShort || !fullId) return;
+    const parts = fullId.replace("#", "").split("-");
+    cardIdShort.textContent =
+      parts.length >= 2
+        ? parts[parts.length - 2] + "-" + parts[parts.length - 1]
+        : fullId.replace("#", "");
+  }
+
   function renderQR() {
     qrBox.innerHTML = "";
     try {
       new QRCode(qrBox, {
         text: homeUrl(),
-        width: 56,
-        height: 56,
+        width: 130,
+        height: 130,
         colorDark: "#1a1a1a",
         colorLight: "#ffffff",
         correctLevel: QRCode.CorrectLevel.M,
       });
     } catch (e) {
       qrBox.innerHTML =
-        '<div style="width:56px;height:56px;background:#111;opacity:.08;border-radius:2px"></div>';
+        '<div style="width:130px;height:130px;background:#eee;display:flex;align-items:center;justify-content:center;font-size:11px;color:#999">QR</div>';
     }
-  }
-
-  function fmtClass(v) {
-    if (!v) return "TERMINAL<br>WIZARD";
-    const parts = v.split(" ");
-    if (parts.length >= 2) return parts[0] + "<br>" + parts.slice(1).join(" ");
-    return v;
   }
 
   function load() {
@@ -62,19 +65,15 @@
       return;
     }
 
-    const name = (data.name || "YOUR NAME").trim().toUpperCase() || "YOUR NAME";
-    const role = (data.role || "YOUR ROLE").trim().toUpperCase() || "YOUR ROLE";
-
-    cardName.textContent = name;
-    cardRole.textContent = role;
-    cardClass.innerHTML = fmtClass(data.klass || "TERMINAL WIZARD");
+    cardName.textContent = (data.name || "YOUR NAME").trim().toUpperCase() || "YOUR NAME";
+    cardRole.textContent = (data.role || "YOUR ROLE").trim().toUpperCase() || "YOUR ROLE";
+    cardClass.textContent = data.klass || "TERMINAL WIZARD";
     cardId.textContent = data.id || "#HH-GOA-····-····";
+    setShortId(data.id);
 
     if (data.barcode && barcodeImg) {
       barcodeImg.src = data.barcode;
       barcodeImg.style.display = "block";
-    } else if (barcodeImg) {
-      barcodeImg.style.display = "none";
     }
 
     if (data.photo) {
@@ -142,8 +141,6 @@
     btnDownload.disabled = true;
     const orig = btnDownload.innerHTML;
     btnDownload.innerHTML = "Generating…";
-    shareNote.textContent = "";
-    shareNote.className = "share-note";
     try {
       const dataUrl = await captureCard();
       downloadDataUrl(dataUrl, `hh-goa-2026-${safeName()}.png`);
@@ -163,33 +160,24 @@
     btnShare.disabled = true;
     const orig = btnShare.innerHTML;
     btnShare.innerHTML = "Preparing…";
-    shareNote.textContent = "";
-    shareNote.className = "share-note";
-
     try {
       const dataUrl = await captureCard();
       const tweet = buildTweetText();
       const blob = dataUrlToBlob(dataUrl);
-      const file = new File([blob], "hh-goa-builder-card.png", {
-        type: "image/png",
-      });
+      const file = new File([blob], "hh-goa-builder-card.png", { type: "image/png" });
 
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share({
-          text: tweet,
-          files: [file],
-          title: "Hacker House Goa 2026 Builder Card",
-        });
+        await navigator.share({ text: tweet, files: [file], title: "HH Goa 2026 Card" });
         shareNote.textContent = "Shared!";
         shareNote.className = "share-note ok";
       } else {
         downloadDataUrl(dataUrl, `hh-goa-2026-${safeName()}.png`);
-        const intent =
-          "https://twitter.com/intent/tweet?text=" +
-          encodeURIComponent(tweet);
-        window.open(intent, "_blank", "noopener,width=550,height=420");
-        shareNote.textContent =
-          "Card downloaded · attach the PNG in the X post that opened.";
+        window.open(
+          "https://twitter.com/intent/tweet?text=" + encodeURIComponent(tweet),
+          "_blank",
+          "noopener,width=550,height=420"
+        );
+        shareNote.textContent = "Card downloaded · attach the PNG in the X post.";
         shareNote.className = "share-note ok";
       }
     } catch (err) {
@@ -198,25 +186,8 @@
         shareNote.className = "share-note";
       } else {
         console.error(err);
-        try {
-          const tweet = buildTweetText();
-          if (lastDataUrl) {
-            downloadDataUrl(lastDataUrl, `hh-goa-2026-${safeName()}.png`);
-          }
-          window.open(
-            "https://twitter.com/intent/tweet?text=" +
-              encodeURIComponent(tweet),
-            "_blank",
-            "noopener,width=550,height=420"
-          );
-          shareNote.textContent =
-            "Card downloaded · attach the PNG in the X compose window.";
-          shareNote.className = "share-note ok";
-        } catch (e2) {
-          shareNote.textContent =
-            "Could not share. Download PNG and post manually.";
-          shareNote.className = "share-note err";
-        }
+        shareNote.textContent = "Could not share. Download PNG manually.";
+        shareNote.className = "share-note err";
       }
     } finally {
       btnShare.innerHTML = orig;

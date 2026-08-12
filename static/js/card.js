@@ -14,6 +14,7 @@
   const cardRole = $("#card-role");
   const cardClass = $("#card-class");
   const cardId = $("#card-id");
+  const cardIdShort = $("#card-id-short");
   const cardPhoto = $("#card-photo");
   const placeholder = $("#placeholder");
   const qrBox = $("#qrcode");
@@ -31,36 +32,40 @@
     }
   }
 
+  function setShortId(fullId) {
+    if (!cardIdShort || !fullId) return;
+    const parts = fullId.replace("#", "").split("-");
+    cardIdShort.textContent =
+      parts.length >= 2
+        ? parts[parts.length - 2] + "-" + parts[parts.length - 1]
+        : fullId.replace("#", "");
+  }
+
   function renderQR() {
     qrBox.innerHTML = "";
     try {
       new QRCode(qrBox, {
         text: homeUrl(),
-        width: 56,
-        height: 56,
+        width: 130,
+        height: 130,
         colorDark: "#1a1a1a",
         colorLight: "#ffffff",
         correctLevel: QRCode.CorrectLevel.M,
       });
     } catch (e) {
       qrBox.innerHTML =
-        '<div style="width:56px;height:56px;background:#111;opacity:.08;border-radius:2px"></div>';
+        '<div style="width:130px;height:130px;background:#eee;display:flex;align-items:center;justify-content:center;font-size:11px;color:#999">QR</div>';
     }
   }
 
-  function fmtClass(v) {
-    const parts = v.split(" ");
-    if (parts.length >= 2) return parts[0] + "<br>" + parts.slice(1).join(" ");
-    return v;
-  }
-
   function apply() {
-    const name = (nameIn.value || "YOUR NAME").trim().toUpperCase();
-    const role = (roleIn.value || "YOUR ROLE").trim().toUpperCase();
-    cardName.textContent = name;
-    cardRole.textContent = role;
-    cardClass.innerHTML = fmtClass(classIn.value);
-    if (currentId) cardId.textContent = currentId;
+    cardName.textContent = (nameIn.value || "YOUR NAME").trim().toUpperCase();
+    cardRole.textContent = (roleIn.value || "YOUR ROLE").trim().toUpperCase();
+    cardClass.textContent = classIn.value;
+    if (currentId) {
+      cardId.textContent = currentId;
+      setShortId(currentId);
+    }
     if (currentBarcode && barcodeImg) {
       barcodeImg.src = currentBarcode;
       barcodeImg.style.display = "block";
@@ -75,14 +80,14 @@
       currentId = data.id;
       currentBarcode = data.barcode;
       cardId.textContent = currentId;
-      if (barcodeImg) {
+      setShortId(currentId);
+      if (barcodeImg && currentBarcode) {
         barcodeImg.src = currentBarcode;
         barcodeImg.style.display = "block";
       }
       return data;
     } catch (e) {
       console.error(e);
-      // Fallback client-side unique-ish id if API fails
       const letters = Array.from({ length: 4 }, () =>
         String.fromCharCode(65 + Math.floor(Math.random() * 26))
       ).join("");
@@ -90,6 +95,7 @@
       currentId = `#HH-GOA-${letters}-${numbers}`;
       currentBarcode = null;
       cardId.textContent = currentId;
+      setShortId(currentId);
       if (barcodeImg) barcodeImg.style.display = "none";
       return { id: currentId, barcode: null };
     }
@@ -123,9 +129,7 @@
 
   btnCreate.addEventListener("click", async () => {
     apply();
-    if (!currentId) {
-      await fetchBuilderId();
-    }
+    if (!currentId) await fetchBuilderId();
     const payload = {
       name: (nameIn.value || "").trim(),
       role: (roleIn.value || "").trim(),
@@ -137,7 +141,7 @@
     try {
       sessionStorage.setItem("hhgoa_card", JSON.stringify(payload));
     } catch (e) {
-      console.warn("sessionStorage failed", e);
+      console.warn(e);
     }
     window.location.href = "/result";
   });
@@ -146,7 +150,6 @@
   roleIn.addEventListener("input", apply);
   classIn.addEventListener("change", apply);
 
-  // Init: fetch unique ID + barcode from Python backend
   (async () => {
     await fetchBuilderId();
     renderQR();
